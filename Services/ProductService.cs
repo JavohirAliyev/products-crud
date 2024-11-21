@@ -10,7 +10,8 @@ public class ProductService(AppDbContext dbContext) : IProductService
 
     public async Task<Product> GetProductByIdAsync(Guid id)
     {
-        return await dbContext.Products.Include(p => p.ProductDetail).FirstOrDefaultAsync(p => p.Id == id);
+        return await dbContext.Products.Include(p => p.ProductDetail).FirstOrDefaultAsync(p => p.Id == id)
+            ?? throw new Exception(nameof(Product));
     }
 
     public async Task<Product> CreateProductAsync(Product product)
@@ -26,9 +27,8 @@ public class ProductService(AppDbContext dbContext) : IProductService
 
     public async Task<Product> UpdateProductAsync(Guid id, Product product)
     {
-        var existingProduct = await dbContext.Products.FindAsync(id);
-        if (existingProduct == null) return null;
-
+        var existingProduct = await dbContext.Products.FindAsync(id) ?? throw new Exception(nameof(Product));
+        
         existingProduct.Name = product.Name;
         existingProduct.Price = product.Price;
         existingProduct.ModifiedAt = DateTime.UtcNow;

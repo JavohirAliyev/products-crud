@@ -11,7 +11,8 @@ public class ProductDetailService : IProductDetailService
 
     public async Task<ProductDetail> GetDetailsByProductIdAsync(Guid productId)
     {
-        return await dbContext.ProductDetails.FirstOrDefaultAsync(d => d.ProductId == productId);
+        return await dbContext.ProductDetails.FirstOrDefaultAsync(d => d.ProductId == productId) ?? 
+            throw new Exception(nameof(ProductDetail));
     }
 
     public async Task<ProductDetail> CreateProductDetailAsync(Guid productId, ProductDetail detail)
@@ -27,7 +28,7 @@ public class ProductDetailService : IProductDetailService
     public async Task<ProductDetail> UpdateProductDetailAsync(Guid productId, ProductDetail detail)
     {
         var existingDetail = await dbContext.ProductDetails.FirstOrDefaultAsync(d => d.ProductId == productId);
-        if (existingDetail == null) return null;
+        if (existingDetail == null) return null!;
 
         existingDetail.Description = detail.Description;
         existingDetail.Color = detail.Color;

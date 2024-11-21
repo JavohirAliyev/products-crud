@@ -2,5 +2,11 @@
 
 ###
 
-GET {{Market_HostAddress}}/products/
+GET {{Market_HostAddress}}/Products
 Accept: application/json
+
+{
+    "name": "buviy",
+    "price": 3000,
+    "Status": 0
+}

@@ -6,9 +6,6 @@ namespace Market.Controllers;
 [Route("api/[controller]")]
 public class ProductsController(IProductService productService) : ControllerBase
 {
-    /// <summary>
-    /// Barcha mahsulotlarni olish
-    /// </summary>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetAllProducts()
     {
@@ -24,9 +21,6 @@ public class ProductsController(IProductService productService) : ControllerBase
         }));
     }
 
-    /// <summary>
-    /// Id bo'yicha mahsulot olish
-    /// </summary>
     [HttpGet("{id}")]
     public async Task<ActionResult<ProductReadDto>> GetProductById(Guid id)
     {
@@ -44,37 +38,26 @@ public class ProductsController(IProductService productService) : ControllerBase
         });
     }
 
-    /// <summary>
-    /// Yangi mahsulot yaratish
-    /// </summary>
     [HttpPost]
-    public async Task<ActionResult<ProductReadDto>> CreateProduct(ProductCreateDto dto)
+    public async Task<ActionResult<Product>> CreateProduct(ProductCreateDto dto)
     {
         var product = new Product
         {
             Name = dto.Name,
             Price = dto.Price,
-            Status = dto.Status
+            Status = dto.Status,
+            CreatedAt = DateTime.Now,
+            ModifiedAt = DateTime.Now,
+            ProductDetail = new ProductDetail()
         };
 
         var createdProduct = await productService.CreateProductAsync(product);
 
-        return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.Id }, new ProductReadDto
-        {
-            Id = createdProduct.Id,
-            Name = createdProduct.Name,
-            Price = createdProduct.Price,
-            CreatedAt = createdProduct.CreatedAt,
-            ModifiedAt = createdProduct.ModifiedAt,
-            Status = createdProduct.Status
-        });
+        return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.Id } );
     }
 
-    /// <summary>
-    /// Id bo'yicha mahsulotni yangilash
-    /// </summary>
     [HttpPut("{id}")]
-    public async Task<ActionResult<ProductReadDto>> UpdateProduct(Guid id, ProductUpdateDto dto)
+    public async Task<ActionResult<ProductUpdateDto>> UpdateProduct(Guid id, ProductUpdateDto dto)
     {
         var product = new Product
         {
@@ -97,9 +80,6 @@ public class ProductsController(IProductService productService) : ControllerBase
         });
     }
 
-    /// <summary>
-    /// Id bo'yicha mahsulotni o'chirish
-    /// </summary>
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteProduct(Guid id)
     {
