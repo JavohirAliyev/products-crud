@@ -17,8 +17,6 @@ public class AppDbContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("now");
-            entity.Property(e => e.ModifiedAt).HasDefaultValueSql("now()");
         });
 
         // ProductDetail konfiguratsiyasi

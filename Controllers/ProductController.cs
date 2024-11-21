@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 
+namespace Market.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class ProductsController(IProductService productService) : ControllerBase

@@ -4,5 +4,3 @@
 
 GET {{Market_HostAddress}}/products/
 Accept: application/json
-
-###

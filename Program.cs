@@ -2,6 +2,13 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Kontrollerlarni qo'shish
+builder.Services.AddControllers();
+
+// Swagger qo'shish
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 // Ma'lumotlar bazasi ulanishini sozlash
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -10,12 +17,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductDetailService, ProductDetailService>();
 
-// Kontrollerlarni qo'shish
-builder.Services.AddControllers();
-
-// Swagger qo'shish
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
