@@ -82,3 +82,4 @@ C:\Users\User\Desktop\2-0.11\Market\obj\Debug\net9.0\refint\Market.dll
 C:\Users\User\Desktop\2-0.11\Market\obj\Debug\net9.0\Market.pdb
 C:\Users\User\Desktop\2-0.11\Market\obj\Debug\net9.0\Market.genruntimeconfig.cache
 C:\Users\User\Desktop\2-0.11\Market\obj\Debug\net9.0\ref\Market.dll
+C:\Users\User\Desktop\2-0.11\Market\obj\Debug\net9.0\Market.sourcelink.json
